@@ -9,13 +9,13 @@ let serveoIP;
 
 
 
-function updateDisplay(json) {
-    var display = {
-        url: serverIP + "/UPDATE/DISPLAY/" + json.id + "?deviceName='" + json.deviceName + "'&hostName='" + json.hostName + "'&site='" + json.site + "'&ip='" + json.ip + "'&auth=" + json.auth + "&status=" + json.status,
+function updateDevice(json) {
+    var device = {
+        url: serverIP + "/UPDATE/DEVICE/" + json.id + "?deviceName='" + json.deviceName + "'&hostName='" + json.hostName + "'&site='" + json.site + "'&ip='" + json.ip + "'&auth=" + json.auth + "&status=" + json.status,
         header: {}
     }
 
-    request.get(display, (err, res, body) => {});
+    request.get(device, (err, res, body) => {});
 }
 
 
@@ -25,13 +25,13 @@ function changeMetaData() {
 
 
 
-function setupDevice(displayData) {
+function setupDevice(deviceData) {
     //metadata
     md = { 
-        id: displayData[0], 
-        deviceName: displayData[1],
-        hostName: displayData[2],
-        site: displayData[3],
+        id: deviceData[0], 
+        deviceName: deviceData[1],
+        hostName: deviceData[2],
+        site: deviceData[3],
         ip: null,
         auth: true,
         status: 1
@@ -48,18 +48,18 @@ function setupDevice(displayData) {
         }
     });
 
-    updateDisplay(md);
+    updateDevice(md);
 }
 
 
 function authenticateID(id) {
-    var display = {
-        url: serverIP + "/GET/DISPLAY?id=" + id,
+    var device = {
+        url: serverIP + "/GET/DEVICE?id=" + id,
         header: {}
     };
 
     return new Promise((resolve, reject) => {
-        request.get(display, (err, res, body) => {
+        request.get(device, (err, res, body) => {
             if(err) {
                 resolve(false);
             } else {
@@ -91,7 +91,7 @@ function connectServeo() {
 
             var f = require("../metaData.json");
             f.ip = serveoIP;
-            updateDisplay(f);
+            updateDevice(f);
 
             fstr = JSON.stringify(f, null, 2);
 
