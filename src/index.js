@@ -85,8 +85,8 @@ var formidable = require("formidable");
 http.createServer(function (req, res) {
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
-        var oldpath = files.filetoupload.path;
-        var newpath = AD_DirAbs + files.filetoupload.name;
+        var oldpath = files.file.path;
+        var newpath = AD_DirAbs + files.file.name;
 
         fs.readFile(oldpath, function (err, data) {
             if (err) throw err;
