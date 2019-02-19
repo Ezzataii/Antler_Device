@@ -18,7 +18,6 @@ window.onload = () => {
 
     //Check if Ad file exists, if not create it
     mkdirp(AD_DirAbs, function (err) {
-        alert("entered");
         if (err) console.error(err)
         else console.log('Ads Folder Created')
     });
