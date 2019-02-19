@@ -1,4 +1,5 @@
 const fs = require('fs');
+var mkdirp = require('mkdirp');
 const register = require("../antler_modules/register")
 
 var AD_DirAbs = "./ads/";
@@ -17,6 +18,14 @@ window.onload = () => {
     win.setFullScreen(true);
     document.getElementById("titleBar").classList.add("hidden");
     document.body.style.cursor = "none";
+
+
+    //Check if Ad file exists, if not create it
+    try {
+        mkdirp.sync(AD_DirRel);
+    } catch(err) {
+        throw err;
+    }
 }
 
 
