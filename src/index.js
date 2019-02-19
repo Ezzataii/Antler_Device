@@ -11,21 +11,22 @@ var AD_Array = [];
 
 
 var win = require('electron').remote.getCurrentWindow();
+
 window.onload = () => {
     console.log("Loaded Index")
     register.connectServeo();
 
+    //Check if Ad file exists, if not create it
+    mkdirp(AD_DirAbs, function (err) {
+        alert("entered");
+        if (err) console.error(err)
+        else console.log('Ads Folder Created')
+    });
+
+
     win.setFullScreen(true);
     document.getElementById("titleBar").classList.add("hidden");
     document.body.style.cursor = "none";
-
-
-    //Check if Ad file exists, if not create it
-    try {
-        mkdirp.sync(AD_DirRel);
-    } catch(err) {
-        throw err;
-    }
 }
 
 
