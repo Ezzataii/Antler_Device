@@ -1,0 +1,97 @@
+@font-face {
+    font-family: 'CooperHewitt-Book';
+    src: url("../fonts/CooperHewitt-Book.woff") format('woff');
+  }
+
+@font-face {
+    font-family: 'CooperHewitt-Semibold';
+    src: url("../fonts/CooperHewitt-Semibold.woff") format('woff');
+  }
+
+html, body  {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+
+    color: #8e8e8e;
+    
+}
+
+body {
+    min-width: 100px;
+    min-height: 100px;
+    background-color: #1e1e1e;
+   
+
+    font-family: "CooperHewitt-Semibold";
+}
+
+header {
+    margin: 0;
+    padding: 0;
+    height: 30px;
+
+    box-shadow: 0 3px 15px 2px #111111;
+    background-color: #333333;
+
+    -webkit-app-region: drag;
+}
+
+
+#titleLogo {
+    width: 30px;
+    height: 30px;
+    float: left;
+}
+
+#titleName {
+    line-height: 30px;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #8e8e8e;
+
+    margin-left: 5px;
+}
+
+.titleBarBtns {
+    width: 45px;
+    height: 30px;
+
+    line-height: 30px;
+    text-align: center;
+    -webkit-app-region: no-drag;
+
+    background-size: 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+#max-btn {
+    float: right;
+    background-image: url("../icons/max.png");
+
+}
+
+#min-btn {
+    float: right;
+    background-image: url("../icons/min.png");
+}
+
+#close-btn {
+    float: right;
+    background-image: url("../icons/close.png");
+}
+
+
+#max-btn:hover {
+    background-color:#666666;
+}
+
+#min-btn:hover {
+    background-color:#666666;
+}
+
+#close-btn:hover {
+    background-color:#ff0000;;
+}

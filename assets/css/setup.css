@@ -1,0 +1,50 @@
+#box {
+    margin: auto;
+
+    width: 200px;
+}
+
+#box h1 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#logo {
+    width: 100px;
+    height: 100px;
+
+    display: block;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+#box input {
+    margin-bottom: 10px;
+}
+
+.registerFormInput {
+    width: 200px;
+    height: 20px;
+}
+
+#submit {
+    background-color: white;
+    color: black;
+    
+    margin: auto;
+    padding: 5px;
+    border: 2px solid #555555;
+    border-radius: 5px;
+}
+  
+#submit:hover {
+    background-color: #555555; 
+    color: white;
+}
+
+#errMsg {
+    color: red;
+}
