@@ -1,21 +1,37 @@
 const fs = require("fs");
 const shell = require("shelljs");
 const request = require("request");
+const $ = require('jquery');
 
-var metaDataPath = "./metaData.json";
-var serverIP = "http://51.77.192.7:8080";
+//const token = "JhkFTHJGFvtrT6tR^5uy6tFjTYR^YtgvjtYRgIJHf7i6iuYGvHCRUTIRIGHvc5F7i^utGBFdtrSRYETtfgilUOI&trtdRFCkytY6YGFVnbv==";
+const token = "abc";
+const serverIP = "http://51.77.192.7:8080";
+const metaDataPath = "./metaData.json";
+
 var md;
 let serveoIP;
 
 
 
-function updateDevice(json) {
-    var device = {
-        url: serverIP + "/UPDATE/DEVICE/" + json.id + "?deviceName='" + json.deviceName + "'&hostName='" + json.hostName + "'&site='" + json.site + "'&ip='" + json.ip + "'&auth=" + json.auth + "&status=" + json.status,
-        header: {}
-    }
 
-    request.get(device, (err, res, body) => {});
+function updateDevice(md) {
+    console.log(md)
+    console.log("Here")
+    $.ajax({
+        url: `${serverIP}/api/update/${md.id}?token=${token}`,
+        type: 'PUT',
+        contentType: "application/json",
+        dataType:'json',
+        data: 
+        JSON.stringify({   
+            "Auth-Code": "",
+            "parameters": md
+        }),
+
+        success: function(data) {
+          alert('Load was performed.');
+        }
+      });
 }
 
 
@@ -32,8 +48,8 @@ function setupDevice(deviceData) {
         deviceName: deviceData[1],
         hostName: deviceData[2],
         site: deviceData[3],
-        ip: null,
-        auth: true,
+        ip: "",
+        auth: 1,
         status: 1
     };
 
@@ -53,13 +69,14 @@ function setupDevice(deviceData) {
 
 
 function authenticateID(id) {
-    var device = {
-        url: serverIP + "/GET/DEVICE?id=" + id,
+    var req = {
+        url: serverIP + "/api/device/authenticate/" + id + "?token=" + token,
         header: {}
     };
 
     return new Promise((resolve, reject) => {
-        request.get(device, (err, res, body) => {
+        request.get(req, (err, res, body) => {
+            console.log(body);
             if(err) {
                 resolve(false);
             } else {
@@ -67,7 +84,7 @@ function authenticateID(id) {
                 
                 if(body.length == 0) {
                     resolve(false);
-                } else if (body.auth == 1) {
+                } else if (body[0].auth == 1) {
                     resolve(false);
                 } else {
                     resolve(true);

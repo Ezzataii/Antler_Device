@@ -17,13 +17,14 @@ document.getElementById("registerForm").addEventListener("submit", (event) => {
 
     register.authenticateID(formData[0]).then(res => {
         console.log(res);
+
         if(res) {
             register.setupDevice(formData);
             require('electron').remote.getCurrentWindow().loadFile("src/index.html");
 
         } else {
             document.getElementById("errMsg").innerHTML = "ID is invalid";
-            form.reset();
+            //form.reset();
         }
     });
 
