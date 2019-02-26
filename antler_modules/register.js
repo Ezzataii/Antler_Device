@@ -15,8 +15,6 @@ let serveoIP;
 
 
 function updateDevice(md) {
-    console.log(md)
-    console.log("Here")
     $.ajax({
         url: `${serverIP}/api/update/${md.id}?token=${token}`,
         type: 'PUT',
@@ -27,10 +25,6 @@ function updateDevice(md) {
             "Auth-Code": "",
             "parameters": md
         }),
-
-        success: function(data) {
-          alert('Load was performed.');
-        }
       });
 }
 
