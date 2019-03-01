@@ -8,12 +8,12 @@
     "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/logo.ico --prune=true --out=release-builds",
     "package-win32": "electron-packager . Antler_Display --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/logo.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Antler Display\"",
     "package-win64": "electron-packager . Antler_Display --overwrite --asar=true --platform=win32 --arch=x64 --icon=assets/icons/logo.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Antler Display\"",
-    "package-linux": "electron-packager . Antler_Display --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/logo.ico --prune=true --out=release-builds"
+    "package-pi": "electron-packager . Antler_Display --overwrite --asar=true --platform=linux --arch=armv7l --icon=assets/icons/logo.ico --prune=true --out=release-builds"
   },
   "author": "Commandeers",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^4.0.4",
+    "electron": "^3.0.13",
     "electron-packager": "^13.0.1"
   },
   "dependencies": {
