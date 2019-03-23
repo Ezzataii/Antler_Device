@@ -15,22 +15,30 @@ let serveoIP;
 
 
 function updateDevice(md) {
-    $.ajax({
-        url: `${serverIP}/api/update/${md.id}?token=${token}`,
-        type: 'PUT',
-        contentType: "application/json",
-        dataType:'json',
-        data: 
-        JSON.stringify({   
-            "Auth-Code": "",
-            "parameters": md
-        }),
-      });
+  var mdClone = JSON.parse(JSON.stringify(md));
+  delete mdClone.id;
+  
+  $.ajax({
+    url: `${serverIP}/api/update/${md.id}?token=${token}`,
+    type: 'PUT',
+    contentType: "application/json",
+    dataType:'json',
+    data: 
+    JSON.stringify({   
+      "Auth-Code": "",
+      "parameters": mdClone
+    }),
+  });
 }
 
 
 function changeMetaData() {
     //TODO
+}
+
+
+function getMD() {
+  return require("../metaData.json");
 }
 
 
@@ -42,7 +50,6 @@ function setupDevice(deviceData) {
         deviceName: deviceData[1],
         hostName: deviceData[2],
         site: deviceData[3],
-        ip: "",
         auth: 1,
         status: 1
     };
@@ -89,40 +96,48 @@ function authenticateID(id) {
 )}
 
 
-function connectServeo() {
-    var child = shell.exec('ssh -R 80:localhost:8080 serveo.net', {async:true});
+
+
+
+function onTurnOn() {
+
+}
+
+
+
+// function connectServeo() {
+//     var child = shell.exec('ssh -R 80:localhost:8080 serveo.net', {async:true});
     
 
-    return new Promise((resolve, reject) => {
-        child.stdout.on('data', (data) => {
-            var urlStart = data.search("https://");
-            var urlEnd = data.search(".net") + 4;
-            serveoIP = data.slice(urlStart, urlEnd);
+//     return new Promise((resolve, reject) => {
+//         child.stdout.on('data', (data) => {
+//             var urlStart = data.search("https://");
+//             var urlEnd = data.search(".net") + 4;
+//             serveoIP = data.slice(urlStart, urlEnd);
     
 
-            var f = require("../metaData.json");
-            f.ip = serveoIP;
-            updateDevice(f);
+//             var f = require("../metaData.json");
+//             f.ip = serveoIP;
+//             updateDevice(f);
 
-            fstr = JSON.stringify(f, null, 2);
+//             fstr = JSON.stringify(f, null, 2);
 
 
-            fs.writeFile(metaDataPath, fstr, (err) => {
-                if (!err) {
-                    console.log('metaData File Updated!!');
-                } else {
-                    console.log('Error updating metaData file');  
-                }   
-            });
+//             fs.writeFile(metaDataPath, fstr, (err) => {
+//                 if (!err) {
+//                     console.log('metaData File Updated!!');
+//                 } else {
+//                     console.log('Error updating metaData file');  
+//                 }   
+//             });
  
 
-            resolve(serveoIP);
-        })
-    });
-}
+//             resolve(serveoIP);
+//         })
+//     });
+//}
 
 
 module.exports.setupDevice = setupDevice;
 module.exports.authenticateID = authenticateID;
-module.exports.connectServeo = connectServeo;
-module.exports.serveoIP = serveoIP;
+module.exports.getMD = getMD;
