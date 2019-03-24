@@ -73,11 +73,11 @@ function getADs() {
 
 
 var showImage = () => { 
-  if(AD_Array.length > 0) {
+  if(AD_Array.length > 0 && AD_Array[adIndex].duration != null) {
     adIndex = adIndex % AD_Array.length;
     var adURL = "url(\'" + serverIP + "/view/ad/" + AD_Array[adIndex].id + "\')";
     elementAD.style.backgroundImage = adURL;
-    console.log(AD_Array[adIndex]);
+    console.log(AD_Array[adIndex].duration);
 
     adIndex = ++adIndex % AD_Array.length;
     setTimeout(showImage, AD_Array[adIndex].duration * 1000);
@@ -87,7 +87,7 @@ var showImage = () => {
 }
 
 AD_Array = getADs();
-if(AD_Array.length > 0) {
+if(AD_Array.length > 0 && AD_Array[adIndex].duration != null) {
   setTimeout(showImage, AD_Array[adIndex].duration * 1000);
 } else {
   setTimeout(showImage, 1000);
