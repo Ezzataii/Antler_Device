@@ -19,7 +19,7 @@ function updateDevice(md) {
   delete mdClone.id;
   
   $.ajax({
-    url: `${serverIP}/api/update/${md.id}?token=${token}`,
+    url: `${serverIP}/api/update/device/${md.id}?token=${token}`,
     type: 'PUT',
     contentType: "application/json",
     dataType:'json',
