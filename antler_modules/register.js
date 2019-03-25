@@ -12,8 +12,6 @@ var md;
 let serveoIP;
 
 
-
-
 function updateDevice(md) {
   var mdClone = JSON.parse(JSON.stringify(md));
   delete mdClone.id;
@@ -29,6 +27,7 @@ function updateDevice(md) {
       "parameters": mdClone
     }),
   });
+  
 }
 
 

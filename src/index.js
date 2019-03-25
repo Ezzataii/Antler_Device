@@ -1,5 +1,7 @@
 var fs = require("fs");
 var mkdirp = require("mkdirp");
+const geolocation = require('geolocation');
+
 var register = require("../antler_modules/register");
 var md = register.getMD();
 var serverIP = "http://51.77.192.7:8080";
@@ -34,6 +36,16 @@ window.onload = () => {
   document.body.style.cursor = "none";
 
 
+ 
+  navigator.geolocation.getCurrentPosition((position) => {
+    console.log(position);
+    var json = {
+      longitude: position.coords.longitude,
+      latitude: position.coords.latitude,
+      id: md.id
+    }
+    socket.emit("location", (json));
+  });
 
   socket.on("deployToClient", (msg) => {
     fs.writeFile(AD_DirAbs + "images.json", JSON.stringify(msg), (err) => {
@@ -44,6 +56,7 @@ window.onload = () => {
     });
   });
 }
+
 
 
 //Hide Title Bar
