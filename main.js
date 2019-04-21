@@ -4,8 +4,10 @@ const fs = require("fs");
 
 let win;
 
+//------------------------------
+process.env.GOOGLE_API_KEY = "AIzaSyAOSThkGKPes0XVY9HloF6GYKHpnrhvauY";
+//------------------------------
 
-process.env.GOOGLE_API_KEY = "";
 function createWindow (htmlFilePath) {
     win = new BrowserWindow({ width: 800, height: 600, frame: false })
 

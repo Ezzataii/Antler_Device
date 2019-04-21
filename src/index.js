@@ -48,12 +48,28 @@ window.onload = () => {
   });
 
   socket.on("deployToClient", (msg) => {
-    fs.writeFile(AD_DirAbs + "images.json", JSON.stringify(msg), (err) => {
-      if (err) throw err;
+    console.log(msg);
+    if(msg.writeMode == "a") {
+      var imageFile = fs.readFileSync(AD_DirAbs + "images.json");
+      var images = JSON.parse(imageFile);
+
+      msg.imageArray.forEach(element => {
+        images.push(element);
+      });
       
-      AD_Array = getADs();
-      console.log(AD_Array);
-    });
+      fs.writeFile(AD_DirAbs + "images.json", JSON.stringify(images), (err) => {
+        if (err) throw err;
+        AD_Array = getADs();
+        console.log(AD_Array);
+      });
+
+    } else if(msg.writeMode == "o") {
+      fs.writeFile(AD_DirAbs + "images.json", JSON.stringify(msg.imageArray), (err) => {
+        if (err) throw err;
+        AD_Array = getADs();
+        console.log(AD_Array);
+      });
+    }
   });
 }
 
@@ -86,11 +102,17 @@ function getADs() {
 
 
 var showImage = () => { 
-  if(AD_Array.length > 0 && AD_Array[adIndex].duration != null) {
+  if(AD_Array.length > 0 && AD_Array[adIndex % AD_Array.length].duration != null) {
     adIndex = adIndex % AD_Array.length;
-    var adURL = "url(\'" + serverIP + "/view/ad/" + AD_Array[adIndex].id + "\')";
+
+    var adURL;
+    if(AD_Array[adIndex].type == "ad") {
+      adURL = `url(\'${serverIP}/view/ad/${AD_Array[adIndex].id}\')`;
+    } else if (AD_Array[adIndex].type == "graph") {
+      adURL = `url(\'${serverIP}/view/graph/${AD_Array[adIndex].id}\')`;
+    }
     elementAD.style.backgroundImage = adURL;
-    console.log(AD_Array[adIndex].duration);
+    console.log(AD_Array[adIndex].duration, AD_Array.length, adIndex);
 
     adIndex = ++adIndex % AD_Array.length;
     setTimeout(showImage, AD_Array[adIndex].duration * 1000);
