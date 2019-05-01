@@ -56,7 +56,6 @@ window.onload = () => {
       msg.imageArray.forEach(element => {
         images.push(element);
       });
-      
       fs.writeFile(AD_DirAbs + "images.json", JSON.stringify(images), (err) => {
         if (err) throw err;
         AD_Array = getADs();
@@ -108,10 +107,16 @@ var showImage = () => {
     var adURL;
     if(AD_Array[adIndex].type == "ad") {
       adURL = `url(\'${serverIP}/view/ad/${AD_Array[adIndex].id}\')`;
+      elementAD.style.backgroundImage = adURL;
     } else if (AD_Array[adIndex].type == "graph") {
       adURL = `url(\'${serverIP}/view/graph/${AD_Array[adIndex].id}\')`;
+      elementAD.style.backgroundImage = adURL;
+    } else if (AD_Array[adIndex].type == "psa") {
+      adURL = `url(\'${serverIP}/view/psa/${AD_Array[adIndex].id}\')`;
+      elementAD.style.backgroundImage = adURL;
+      document.getElementById("emergencyText").innerHTML = AD_Array[adIndex].text;
     }
-    elementAD.style.backgroundImage = adURL;
+    
     console.log(AD_Array[adIndex].duration, AD_Array.length, adIndex);
 
     adIndex = ++adIndex % AD_Array.length;
