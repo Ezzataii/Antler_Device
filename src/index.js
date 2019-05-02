@@ -108,12 +108,17 @@ var showImage = () => {
     if(AD_Array[adIndex].type == "ad") {
       adURL = `url(\'${serverIP}/view/ad/${AD_Array[adIndex].id}\')`;
       elementAD.style.backgroundImage = adURL;
+      document.getElementById("emergencyText").innerHTML = "";
+      document.getElementById("emergencyDiv").style.display = 'none';
     } else if (AD_Array[adIndex].type == "graph") {
       adURL = `url(\'${serverIP}/view/graph/${AD_Array[adIndex].id}\')`;
       elementAD.style.backgroundImage = adURL;
+      document.getElementById("emergencyText").innerHTML = "";
+      document.getElementById("emergencyDiv").style.display = 'none';
     } else if (AD_Array[adIndex].type == "psa") {
       adURL = `url(\'${serverIP}/view/psa/${AD_Array[adIndex].id}\')`;
       elementAD.style.backgroundImage = adURL;
+      document.getElementById("emergencyDiv").style.display = 'block';
       document.getElementById("emergencyText").innerHTML = AD_Array[adIndex].text;
     }
     
