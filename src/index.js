@@ -30,6 +30,10 @@ window.onload = () => {
     if (err) throw err;
   });
 
+  if (!fs.existsSync("./ads/images.json")) {
+    fs.writeFileSync("./ads/images.json","[]",(err)=>{});
+  }
+
 
   win.setFullScreen(true);
   document.getElementById("titleBar").classList.add("hidden");
@@ -126,9 +130,15 @@ var showImage = () => {
 
     adIndex = ++adIndex % AD_Array.length;
     setTimeout(showImage, AD_Array[adIndex].duration * 1000);
+  } else if (AD_Array.length == 0){
+      adURL = `url(\'${serverIP}/view/default/ad\')`;
+      elementAD.style.backgroundImage = adURL;
+      document.getElementById("emergencyText").innerHTML = "";
+      document.getElementById("emergencyDiv").style.display = 'none';
+      setTimeout(showImage, 1000);
   } else {
-    setTimeout(showImage, 1000);
-  } 
+      setTimeout(showImage, 1000);
+    }
 }
 
 AD_Array = getADs();

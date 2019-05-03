@@ -31,9 +31,6 @@ function createWindow (htmlFilePath) {
 app.on('ready', () => {
     
     if(fs.existsSync("./metaData.json")) {
-        if (!fs.existsSync("./ads/images.json")) {
-          fs.writeFileSync("./ads/images.json","[]",(err)=>{});
-        }
         createWindow("src/index.html")
     } else {
         createWindow("src/setup.html")
@@ -43,6 +40,7 @@ app.on('ready', () => {
     globalShortcut.register("CommandOrControl+Q", () => {
       win.webContents.openDevTools();
     });
+    win.webContents.session.clearCache(()=>{});
 })
 
 
